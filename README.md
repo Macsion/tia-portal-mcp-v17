@@ -376,7 +376,6 @@ curl -X POST http://localhost:5000/api/devices/HMI/hmi/tags/Default%20tag%20tabl
 - [User Manual](docs/user-manual.md) — full guide to both tabs, all tools, MCP setup, and troubleshooting
 - [What is TIA Portal Openness?](docs/what-is-tia-openness.md) — plain-English guide to the API
 - [Siemens TIA Portal Openness documentation](https://support.industry.siemens.com/cs/document/109792902) — official Siemens overview and links
-- [TIA Portal Openness system manual (PDF)](https://support.industry.siemens.com/cs/ww/en/view/109748523) — full API reference
 
 ---
 

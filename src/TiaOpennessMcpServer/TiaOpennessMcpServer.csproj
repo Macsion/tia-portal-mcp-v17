@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>TiaOpennessMcpServer</RootNamespace>
+    <AssemblyName>TiaPortalDashboard</AssemblyName>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <UseWindowsForms>true</UseWindowsForms>
+    <!--
+      WinCC Unified Openness (Siemens.Engineering.HmiUnified) does not exist in the
+      TIA Portal V17 PublicAPI. The HMI services are therefore excluded by default so
+      the server builds and runs against V17. Build with -p:TiaHmiUnified=true only
+      when targeting a TIA Portal version that ships the HmiUnified API (V18 or later).
+    -->
+    <TiaHmiUnified Condition="'$(TiaHmiUnified)' == ''">false</TiaHmiUnified>
+    <DefineConstants Condition="'$(TiaHmiUnified)' == 'true'">$(DefineConstants);TIA_HMI_UNIFIED</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console"     Version="8.0.1" />
+    <PackageReference Include="System.Text.Json"                         Version="8.0.5" />
+    <PackageReference Include="Microsoft.Web.WebView2"                   Version="1.0.2651.64" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Siemens.Engineering">
+      <HintPath>$(PROGRAMFILES)\Siemens\Automation\Portal V17\PublicAPI\V17\Siemens.Engineering.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Siemens.Engineering.Hmi">
+      <HintPath>$(PROGRAMFILES)\Siemens\Automation\Portal V17\PublicAPI\V17\Siemens.Engineering.Hmi.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TiaHmiUnified)' != 'true'">
+    <Compile Remove="Services\HmiTagService.cs" />
+    <Compile Remove="Services\HmiScreenService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="dashboard.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

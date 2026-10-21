@@ -1,0 +1,11 @@
+{
+  "_comment": "Example stdio MCP entry. Add the 'tia-portal' object under 'mcpServers' in your MCP client configuration. Replace the command path with your local Release build.",
+  "mcpServers": {
+    "tia-portal": {
+      "command": "C:\\path\\to\\tia-portal-mcp\\src\\TiaOpennessMcpServer\\bin\\Release\\net48\\TiaPortalDashboard.exe",
+      "args": [
+        "--mcp-stdio"
+      ]
+    }
+  }
+}
